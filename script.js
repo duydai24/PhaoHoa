@@ -112,7 +112,7 @@ const store = {
 	state: {
 		// will be unpaused in init()
 		paused: true,
-		soundEnabled: false,
+		soundEnabled: true,
 		menuOpen: false,
 		openHelpTopic: null,
 		fullscreen: isFullscreen(),
@@ -236,7 +236,7 @@ function toggleSound(toggle) {
 	if (typeof toggle === 'boolean') {
 		store.setState({ soundEnabled: toggle });
 	} else {
-		store.setState({ soundEnabled: !store.state.soundEnabled });
+		store.setState({ soundEnabled: !store?.state?.soundEnabled });
 	}
 }
 
@@ -278,7 +278,7 @@ function configDidUpdate() {
 
 const isRunning = (state=store.state) => !state.paused && !state.menuOpen;
 // Whether user has enabled sound.
-const soundEnabledSelector = (state=store.state) => state.soundEnabled;
+const soundEnabledSelector = (state=store.state) => state?.soundEnabled;
 // Whether any sounds are allowed, taking into account multiple factors.
 const canPlaySoundSelector = (state=store.state) => isRunning(state) && soundEnabledSelector(state);
 // Convert quality to number.
@@ -289,7 +289,6 @@ const shellSizeSelector = () => +store.state.config.size;
 const finaleSelector = () => store.state.config.finale;
 const skyLightingSelector = () => +store.state.config.skyLighting;
 const scaleFactorSelector = () => store.state.config.scaleFactor;
-
 
 
 // Help Content
